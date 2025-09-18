@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import * as crypto from "crypto";
 
 const userSchema = Schema(
   {
@@ -37,7 +38,7 @@ const userSchema = Schema(
       type: String,
       required: [true, "Password is required"],
     },
-    email: {
+    isEmailVerified: {
       type: Boolean,
       default: false,
     },
