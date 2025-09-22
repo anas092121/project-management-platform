@@ -28,16 +28,13 @@ const generateAccessAndRefreshTokens = async (userId) => {
 
 export const registerUser = asyncHandler(async (req, res) => {
   const { email, username, password, role } = req.body || {};
-
   if (!email || !username || !password) {
     // <-- change
     throw new ApiError(400, "Email, username, and password are required"); // <-- change
   }
-
   let user = await User.findOne({
     $or: [{ username }, { email }],
   });
-
   if (user) {
     throw new ApiError(
       409,
@@ -45,7 +42,6 @@ export const registerUser = asyncHandler(async (req, res) => {
       [],
     );
   }
-
   user = await User.create({
     email,
     password,
@@ -353,8 +349,6 @@ export const resetForgotPassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Password reset successfully"));
 });
 
-//
-//
 export const changeCurrentPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   const user = User.findById(req.user?._id);
